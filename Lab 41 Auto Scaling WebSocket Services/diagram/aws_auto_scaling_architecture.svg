@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="800" viewBox="0 0 1600 800">
+<defs>
+  <marker id="blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#1455B8"/></marker>
+  <marker id="green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#197A36"/></marker>
+  <marker id="orange" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#E87500"/></marker>
+  <marker id="red" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 Z" fill="#D62828"/></marker>
+  <style>
+    .title{font:700 30px Arial;fill:#14213D}.head{font:700 22px Arial}.txt{font:16px Arial;fill:#222}.small{font:14px Arial;fill:#444}
+    .box{fill:white;stroke-width:2;rx:14}.label{font:700 17px Arial}.dash{fill:none;stroke-width:3;stroke-dasharray:9 7}
+  </style>
+</defs>
+<rect width="1600" height="800" fill="#fff"/>
+<text x="800" y="45" text-anchor="middle" class="title">AWS AUTO SCALING ARCHITECTURE</text>
+
+<!-- Client -->
+<rect x="45" y="265" width="180" height="145" class="box" stroke="#1455B8"/>
+<circle cx="135" cy="305" r="25" fill="#E8F0FF"/><circle cx="135" cy="305" r="12" fill="#1455B8"/>
+<text x="135" y="350" text-anchor="middle" class="head" fill="#1455B8">Client</text>
+<text x="135" y="377" text-anchor="middle" class="txt">HTTP / HTTPS Request</text>
+
+<!-- ALB -->
+<rect x="300" y="245" width="235" height="185" class="box" stroke="#197A36"/>
+<circle cx="418" cy="295" r="31" fill="#EEE7FF"/>
+<path d="M398 295h40M418 275v40M400 278l-12 17 12 17M436 278l12 17-12 17" fill="none" stroke="#6B3FB8" stroke-width="7"/>
+<text x="418" y="350" text-anchor="middle" class="head" fill="#197A36">Application Load Balancer</text>
+<text x="418" y="380" text-anchor="middle" class="txt">Port 80</text>
+
+<!-- Target group -->
+<rect x="320" y="475" width="195" height="90" class="box" stroke="#197A36" stroke-dasharray="6 5"/>
+<text x="418" y="510" text-anchor="middle" class="label" fill="#197A36">Target Group</text>
+<text x="418" y="536" text-anchor="middle" class="small">Port 8080 • Health Check</text>
+<path d="M418 475V430" stroke="#197A36" stroke-width="3" marker-end="url(#green)"/>
+
+<!-- ASG -->
+<rect x="625" y="225" width="360" height="350" rx="18" fill="#FFF9F1" stroke="#E87500" stroke-width="3" stroke-dasharray="8 6"/>
+<text x="805" y="265" text-anchor="middle" class="head" fill="#D56500">Auto Scaling Group</text>
+<text x="805" y="292" text-anchor="middle" class="small">ws-asg</text>
+<rect x="660" y="320" width="290" height="90" rx="12" fill="#F5FFF7" stroke="#197A36" stroke-width="2"/>
+<text x="805" y="353" text-anchor="middle" class="label" fill="#197A36">↑ Scale Out (+1)</text>
+<text x="805" y="380" text-anchor="middle" class="txt">&gt; 100 requests / 2 min</text>
+<rect x="660" y="435" width="290" height="90" rx="12" fill="#FFF5F5" stroke="#D62828" stroke-width="2"/>
+<text x="805" y="468" text-anchor="middle" class="label" fill="#D62828">↓ Scale In (−1)</text>
+<text x="805" y="495" text-anchor="middle" class="txt">&lt; 30 requests / 5 min</text>
+
+<!-- Instances -->
+<text x="1320" y="155" text-anchor="middle" class="head" fill="#6332A5">EC2 Instances</text>
+<g>
+  <rect x="1110" y="205" width="380" height="78" class="box" stroke="#6332A5"/>
+  <rect x="1135" y="225" width="38" height="38" rx="6" fill="#EEE7FF" stroke="#6332A5" stroke-width="3"/>
+  <text x="1200" y="238" class="label" fill="#6332A5">Instance 1</text><text x="1200" y="260" class="small">In Service</text>
+  <rect x="1110" y="305" width="380" height="78" class="box" stroke="#6332A5"/>
+  <rect x="1135" y="325" width="38" height="38" rx="6" fill="#EEE7FF" stroke="#6332A5" stroke-width="3"/>
+  <text x="1200" y="338" class="label" fill="#6332A5">Instance 2</text><text x="1200" y="360" class="small">In Service</text>
+  <rect x="1110" y="405" width="380" height="78" class="box" stroke="#6332A5"/>
+  <rect x="1135" y="425" width="38" height="38" rx="6" fill="#EEE7FF" stroke="#6332A5" stroke-width="3"/>
+  <text x="1200" y="438" class="label" fill="#6332A5">Instance 3</text><text x="1200" y="460" class="small">In Service</text>
+  <rect x="1110" y="505" width="380" height="78" class="box" stroke="#6332A5"/>
+  <rect x="1135" y="525" width="38" height="38" rx="6" fill="#EEE7FF" stroke="#6332A5" stroke-width="3"/>
+  <text x="1200" y="538" class="label" fill="#6332A5">Instance N</text><text x="1200" y="560" class="small">Launching</text>
+</g>
+
+<!-- CloudWatch -->
+<rect x="980" y="40" width="370" height="125" rx="15" fill="#FFF8F8" stroke="#D62828" stroke-width="2"/>
+<text x="1165" y="78" text-anchor="middle" class="head" fill="#D62828">CloudWatch Alarm</text>
+<text x="1070" y="115" text-anchor="middle" class="label" fill="#197A36">&gt;100 / 2 min → +1</text>
+<text x="1260" y="115" text-anchor="middle" class="label" fill="#D62828">&lt;30 / 5 min → −1</text>
+<path d="M985 145 C930 175 900 190 900 225" class="dash" stroke="#D62828" marker-end="url(#red)"/>
+
+<!-- Launch template -->
+<rect x="625" y="620" width="260" height="95" class="box" stroke="#1455B8"/>
+<text x="755" y="655" text-anchor="middle" class="head" fill="#1455B8">Launch Template</text>
+<text x="755" y="682" text-anchor="middle" class="small">AMI • Instance Type • Security Group</text>
+<path d="M755 620V575" class="dash" stroke="#1455B8" marker-end="url(#blue)"/>
+
+<!-- Main arrows -->
+<path d="M225 338H300" stroke="#1455B8" stroke-width="4" marker-end="url(#blue)"/>
+<path d="M535 338H625" stroke="#197A36" stroke-width="4" marker-end="url(#green)"/>
+<path d="M985 300H1080V244H1110" stroke="#E87500" stroke-width="4" fill="none" marker-end="url(#orange)"/>
+<path d="M1080 344H1110" stroke="#E87500" stroke-width="4" marker-end="url(#orange)"/>
+<path d="M1080 444H1110" stroke="#E87500" stroke-width="4" marker-end="url(#orange)"/>
+<path d="M1080 544H1110" stroke="#E87500" stroke-width="4" marker-end="url(#orange)"/>
+
+<!-- Legend -->
+<rect x="45" y="745" width="1445" height="38" rx="10" fill="#F7F8FA"/>
+<line x1="75" y1="764" x2="115" y2="764" stroke="#1455B8" stroke-width="4"/><text x="125" y="770" class="small">Traffic</text>
+<line x1="280" y1="764" x2="320" y2="764" stroke="#197A36" stroke-width="4"/><text x="330" y="770" class="small">Routing</text>
+<line x1="480" y1="764" x2="520" y2="764" stroke="#E87500" stroke-width="4"/><text x="530" y="770" class="small">Instance Management</text>
+<line x1="780" y1="764" x2="820" y2="764" stroke="#D62828" stroke-width="3" stroke-dasharray="8 5"/><text x="830" y="770" class="small">Monitoring / Scaling</text>
+</svg>
