@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" font-family="Arial, Helvetica, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="540" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2937">OIDC Authorization Code Flow with PKCE</text>
+  <text x="450" y="50" text-anchor="middle" font-size="12" fill="#6b7280">How a browser, the relying party, and the mock IdP exchange a signed id_token</text>
+
+  <!-- Lifelines: header boxes -->
+  <rect x="80"  y="80" width="140" height="40" rx="6" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5"/>
+  <text x="150" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#3730a3">Browser</text>
+
+  <rect x="320" y="80" width="180" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="410" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#065f46">Flask App (Relying Party)</text>
+
+  <rect x="600" y="80" width="200" height="40" rx="6" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="700" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#9a3412">Mock Identity Provider</text>
+
+  <!-- Lifelines (vertical dashed lines) -->
+  <line x1="150"  y1="120" x2="150"  y2="500" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="410" y1="120" x2="410" y2="500" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="700" y1="120" x2="700" y2="500" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Step 1: GET /login -->
+  <text x="30"  y="150" font-size="11" fill="#374151">1</text>
+  <line x1="150" y1="148" x2="410" y2="148" stroke="#374151" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="280" y="142" text-anchor="middle" font-size="10" fill="#374151">GET /login</text>
+
+  <!-- Step 2: 302 redirect to IdP -->
+  <text x="30"  y="178" font-size="11" fill="#374151">2</text>
+  <line x1="410" y1="178" x2="150" y2="178" stroke="#374151" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="280" y="172" text-anchor="middle" font-size="10" fill="#374151">302 redirect with state, nonce, code_challenge</text>
+
+  <!-- Step 3: GET /protocol/openid-connect/auth -->
+  <text x="30"  y="208" font-size="11" fill="#374151">3</text>
+  <line x1="150" y1="208" x2="700" y2="208" stroke="#374151" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="425" y="202" text-anchor="middle" font-size="10" fill="#374151">GET /realms/lab-realm/protocol/openid-connect/auth</text>
+
+  <!-- Step 4: user picker (self loop) -->
+  <text x="30"  y="240" font-size="11" fill="#374151">4</text>
+  <line x1="700" y1="238" x2="770" y2="238" stroke="#374151" stroke-width="1.5"/>
+  <line x1="770" y1="238" x2="770" y2="260" stroke="#374151" stroke-width="1.5"/>
+  <line x1="770" y1="260" x2="700" y2="260" stroke="#374151" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="800" y="252" font-size="10" fill="#374151">render user picker</text>
+
+  <!-- Step 5: POST username -->
+  <text x="30"  y="290" font-size="11" fill="#374151">5</text>
+  <line x1="700" y1="290" x2="150" y2="290" stroke="#374151" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="425" y="284" text-anchor="middle" font-size="10" fill="#374151">302 with authorization code</text>
+
+  <!-- Step 6: GET /callback?code=... -->
+  <text x="30"  y="320" font-size="11" fill="#374151">6</text>
+  <line x1="150" y1="320" x2="410" y2="320" stroke="#374151" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="280" y="314" text-anchor="middle" font-size="10" fill="#374151">GET /callback?code=...&amp;state=...</text>
+
+  <!-- Step 7: token exchange (RP -> IdP, in-process localhost) -->
+  <text x="30"  y="350" font-size="11" fill="#374151">7</text>
+  <line x1="410" y1="350" x2="700" y2="350" stroke="#059669" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#ag)"/>
+  <text x="555" y="344" text-anchor="middle" font-size="10" fill="#047857">POST /token (code + code_verifier) - in-process on localhost</text>
+
+  <!-- Step 8: id_token (RS256) back -->
+  <text x="30"  y="380" font-size="11" fill="#374151">8</text>
+  <line x1="700" y1="380" x2="410" y2="380" stroke="#059669" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#ag)"/>
+  <text x="555" y="374" text-anchor="middle" font-size="10" fill="#047857">id_token (RS256 signed JWT) + access_token</text>
+
+  <!-- Step 9: verify against JWKS -->
+  <text x="30"  y="410" font-size="11" fill="#374151">9</text>
+  <line x1="410" y1="412" x2="700" y2="412" stroke="#059669" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#ag)"/>
+  <line x1="700" y1="425" x2="410" y2="425" stroke="#059669" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#ag)"/>
+  <text x="555" y="420" text-anchor="middle" font-size="10" fill="#047857">fetch JWKS, verify signature, iss, aud, nonce, exp</text>
+
+  <!-- Step 10: redirect to /profile -->
+  <text x="30"  y="458" font-size="11" fill="#374151">10</text>
+  <line x1="410" y1="458" x2="150" y2="458" stroke="#374151" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="280" y="452" text-anchor="middle" font-size="10" fill="#374151">302 -> /profile (session has id_claims)</text>
+
+  <!-- Note about extracted roles -->
+  <rect x="60" y="495" width="780" height="32" rx="6" fill="#eef2ff" stroke="#6366f1"/>
+  <text x="450" y="515" text-anchor="middle" font-size="11" fill="#3730a3">rbac.py reads the <tspan font-weight="bold">groups</tspan> claim from id_claims, applies the ROLE_GROUPS mapping, and exposes the role set to the decorators.</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#374151"/>
+    </marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#059669"/>
+    </marker>
+  </defs>
+</svg>
