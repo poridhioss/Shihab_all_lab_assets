@@ -6,7 +6,8 @@ Consolidated folder containing all images and assets from the labs across these 
 - **Real-Time Systems** (Modules 72–73) — Labs 36–43
 - **Scaling, Benchmarking, and Resilience for Elasticsearch** (Modules 78–79) — Lab 52 (no images)
 - **Blob & Object Stores** (Module 11b) — Labs L1–L4
+- **DNS, Load Balancing & CDN** (Module 12) — Labs L1–L4
 
-Total images: **210+**.
+Total images: **260+**.
 
 Each lab folder preserves the original subdirectory layout (`diagram/`, `diagrams/`, `images/`, `Images/`, `screenshots/`, etc.). Files are served via raw.githubusercontent.com and referenced from the lab READMEs.
